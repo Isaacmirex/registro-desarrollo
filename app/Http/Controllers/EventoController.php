@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evento;
 use App\Models\Laboratorio;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
-class LaboratorioController extends Controller
+class EventoController extends Controller
 {
-
     protected $rules = [
         'nombre' => 'required',
-        'ubicacion' => 'required',
-        'personal_cargo' => 'required',
-        'descripcion' => 'required',
-        'aforo' => 'required|numeric'
+        'detalle' => 'required',
+        'asistentes' => 'required|numeric',
+        'fecha' => 'required',
+        'hora_inicio' => 'required',
+        'hora_fin' => 'required',
+        'usuario_id' => 'required|numeric',
+        'laboratorio_id' => 'required|numeric'
     ];
 
     /**
@@ -35,8 +38,10 @@ class LaboratorioController extends Controller
     public function create()
     {
         $usuarios = Usuario::all();
-        return view('admin.register_lab', [
-            'usuarios' => $usuarios
+        $laboratorios = Laboratorio::all();
+        return view('admin.register_ev', [
+            'usuarios' => $usuarios,
+            'laboratorios' => $laboratorios
         ]);
     }
 
@@ -48,10 +53,11 @@ class LaboratorioController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->validate($this->rules);
-        $laboratorio = Laboratorio::create($data);
+        $evento = Evento::create($data);
         return redirect()->route('admin.index')->with('alert', [
-            'message' => "Laboratorio $laboratorio->nombre agregado correctamente.",
+            'message' => "Evento $evento->nombre agregado correctamente.",
             'type' => 'success'
         ]);
     }
@@ -59,10 +65,10 @@ class LaboratorioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Laboratorio  $laboratorio
+     * @param  \App\Models\Evento  $evento
      * @return \Illuminate\Http\Response
      */
-    public function show(Laboratorio $laboratorio)
+    public function show(Evento $evento)
     {
         //
     }
@@ -70,10 +76,10 @@ class LaboratorioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Laboratorio  $laboratorio
+     * @param  \App\Models\Evento  $evento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Laboratorio $laboratorio)
+    public function edit(Evento $evento)
     {
         //
     }
@@ -82,10 +88,10 @@ class LaboratorioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Laboratorio  $laboratorio
+     * @param  \App\Models\Evento  $evento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Laboratorio $laboratorio)
+    public function update(Request $request, Evento $evento)
     {
         //
     }
@@ -93,30 +99,11 @@ class LaboratorioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Laboratorio  $laboratorio
+     * @param  \App\Models\Evento  $evento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Laboratorio $laboratorio)
+    public function destroy(Evento $evento)
     {
         //
-    }
-
-    // Roles
-    public function showUsers(Request $request)
-    {
-        $usuarios = Usuario::all();
-        return view('admin.asignar_rol', compact('usuarios'));
-    }
-
-    public function updateUsers(Request $request)
-    {
-        $idUser = $request->get('id');
-        $rol = $request->get('rol');
-
-        $user = Usuario::find($idUser);
-        $user->rol = $rol;
-        $user->save();
-
-        return redirect()->route('admin.rol.index');
     }
 }

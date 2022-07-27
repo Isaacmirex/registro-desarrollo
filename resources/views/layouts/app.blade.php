@@ -64,7 +64,7 @@
 
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page"
-                    href="{{ route('laboratorios.create') }}">
+                    href="{{ route('eventos.create') }}">
                     Añadir eventos</a>
                 </li>
                 <li class="nav-item">

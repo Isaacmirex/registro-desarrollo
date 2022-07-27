@@ -26,4 +26,9 @@ class Usuario extends Authenticatable
 
         $this->attributes['password'] = bcrypt($password);
     }
+
+    public function eventos()
+    {
+        return $this->hasMany(Evento::class);
+    }
 }

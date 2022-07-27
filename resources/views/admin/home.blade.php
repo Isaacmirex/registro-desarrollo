@@ -19,35 +19,33 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Pizza Name</th>
-                  <th scope="col">Pizza Description</th>
-                  {{-- <th scope="col">State</th> --}}
-                  <th scope="col">Actions</th>
+                  <th scope="col">Nombres</th>
+                  <th scope="col">Evento</th>
+                  <th scope="col">Detalle</th>
+                  <th scope="col">Asistentes</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Hora inicio - Hora fin</th>
+                  <th scope="col">Laboratorio</th>
+                  <th scope="col">Ubicación</th>
+                  <th scope="col">Personal a cargo</th>
                 </tr>
               </thead>
               <tbody>
-                {{-- @foreach ($pizzas as $pizza)
+                @foreach ($eventos as $evento)
                   <tr>
-                    <th scope="row">{{ $pizza['piz_id'] }}</th>
-                    <td>{{ $pizza['piz_name'] }}</td>
-                    <td>{{ $pizza['piz_description'] }}</td>
-                    <td class="d-flex">
-                      <a href="{{ route('pizzas.edit', $pizza['piz_id']) }}"
-                        class="btn btn-success">Edit Pizza</a>
-                      <a href="{{ route('pizzas.ingredients.edit', $pizza['piz_id']) }}"
-                        class="btn btn-warning mx-1">Add ingredient</a>
-                      <form
-                        action="{{ route('pizzas.destroy', $pizza['piz_id']) }}"
-                        method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete
-                        </button>
-                      </form>
-                    </td>
+                    <th scope="row">{{ $evento->usuario->nombres }}
+                      {{ $evento->usuario->apellidos }}</th>
+                    <td>{{ $evento->nombre }}</td>
+                    <td>{{ $evento->detalle }}</td>
+                    <td>{{ $evento->asistentes }}</td>
+                    <td>{{ $evento->fecha }}</td>
+                    <td>{{ $evento->hora_inicio }} -
+                      {{ $evento->hora_fin }}</td>
+                    <td>{{ $evento->laboratorio->nombre }}</td>
+                    <td>{{ $evento->laboratorio->ubicacion }}</td>
+                    <td>{{ $evento->laboratorio->personal_cargo }}</td>
                   </tr>
-                @endforeach --}}
+                @endforeach
               </tbody>
             </table>
           </div>

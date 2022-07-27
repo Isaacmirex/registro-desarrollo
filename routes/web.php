@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SessionsController;
 use App\Http\Controllers\Auth\UsuarioController;
+use App\Http\Controllers\EventoController;
 use App\Http\Controllers\LaboratorioController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,9 @@ Route::get('/user', [UsuarioController::class, 'index'])
 
 // Laboratorios
 Route::resource('laboratorios', LaboratorioController::class);
+
+// Eventos
+Route::resource('eventos', EventoController::class);
 
 // Agregar rol a usuarios
 Route::get('/admin/rol', [LaboratorioController::class, 'showUsers'])

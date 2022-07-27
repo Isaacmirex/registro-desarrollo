@@ -16,4 +16,9 @@ class Laboratorio extends Model
         'descripcion',
         'aforo',
     ];
+
+    public function evento()
+    {
+        return $this->hasOne(Evento::class);
+    }
 }
