@@ -27,6 +27,7 @@ class RegisterController extends Controller
         $user = Usuario::create(request(['nombres', 'apellidos', 'correo', 'password']));
 
         auth()->login($user);
-        return redirect()->to('/home');
+        auth()->logout();
+        return redirect()->to('/login');
     }
 }

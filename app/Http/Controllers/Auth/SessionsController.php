@@ -19,8 +19,13 @@ class SessionsController extends Controller
                 'message' => 'El correo o cotraseña son incorrectos'
             ]);
         } else {
-
-            return redirect()->to('/home');
+            if (auth()->user()->rol == 'admin') {
+                return redirect()->route('admin.index');
+            } else if (auth()->user()->rol == 'user') {
+                return redirect()->route('user.index');
+            } else {
+                return redirect()->to('/login');
+            }
         }
     }
 

@@ -25,7 +25,7 @@
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
       <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="">
           {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -46,8 +46,6 @@
             <!-- Authentication Links -->
 
             @guest
-
-
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('login.index') }}">Log In</a>
               </li>
@@ -56,6 +54,30 @@
                   href="{{ route('register.index') }}">Register</a>
               </li>
             @else
+              @if (auth()->user()->rol == 'admin')
+                {{-- Añadir laboratorios --}}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page"
+                    href="{{ route('laboratorios.create') }}">
+                    Añadir laboratorios</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page"
+                    href="{{ route('laboratorios.create') }}">
+                    Añadir eventos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page"
+                    href="{{ route('admin.rol.index') }}">
+                    Asignar rol</a>
+                </li>
+              @elseif (auth()->user()->rol == 'user')
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page"
+                    href="#">Crear reserva</a>
+                </li>
+              @endif
               <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle"
                   href="#" role="button" data-bs-toggle="dropdown"
@@ -83,6 +105,10 @@
     </nav>
 
     <main class="py-4">
+      @if ($alert = session()->get('alert'))
+        <x-alert :type="$alert['type']" :message="$alert['message']" />
+      @endif
+
       @yield('content')
     </main>
   </div>
