@@ -81,7 +81,13 @@ class EventoController extends Controller
      */
     public function edit(Evento $evento)
     {
-        //
+        $usuarios = Usuario::all();
+        $laboratorios = Laboratorio::all();
+        return view('admin.edit_ev',  [
+            'usuarios' => $usuarios,
+            'laboratorios' => $laboratorios,
+            'evento' => $evento
+        ]);
     }
 
     /**
@@ -93,7 +99,12 @@ class EventoController extends Controller
      */
     public function update(Request $request, Evento $evento)
     {
-        //
+        $data = $request->validate($this->rules);
+        $evento->update($data);
+        return redirect()->route('admin.index')->with('alert', [
+            'message' => "Evento $evento->nombre actualizado correctamente.",
+            'type' => 'success'
+        ]);
     }
 
     /**

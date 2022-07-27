@@ -14,7 +14,7 @@
               </div>
             @endif
 
-            {{ __('You are logged in like admin!') }}
+            {{-- {{ __('You are logged in like admin!') }} --}}
 
             <table class="table">
               <thead>
@@ -28,6 +28,7 @@
                   <th scope="col">Laboratorio</th>
                   <th scope="col">Ubicación</th>
                   <th scope="col">Personal a cargo</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,6 +45,17 @@
                     <td>{{ $evento->laboratorio->nombre }}</td>
                     <td>{{ $evento->laboratorio->ubicacion }}</td>
                     <td>{{ $evento->laboratorio->personal_cargo }}</td>
+                    <td>
+                      <a href="{{ route('eventos.edit', $evento->id) }}"
+                        class="btn btn-success mb-2">Editar evento</a>
+                      <form action="{{ route('eventos.destroy', $evento->id) }}"
+                        method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                          class="btn btn-danger mb-2">Eliminar evento</button>
+                      </form>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>
